@@ -1,5 +1,6 @@
 import 'dart:html';
 import 'dart:convert';
+import 'package:dialog/dialog.dart';
 import 'package:http/http.dart' as http;
 
 void main() {
@@ -12,6 +13,15 @@ void main() {
   cities.add('Londres');
 
   loadData(cities);
+
+  querySelector('#searchCity').onClick.listen((a) async {
+    var myPrompt = await prompt('Qual cidade você quer buscar?');
+
+    if (myPrompt.toString().length > 0)
+      loadData([myPrompt.toString()]);
+    else
+      alert('Nenhuma cidade informada!');
+  });
 }
 
 Future getWeather(String city) {
